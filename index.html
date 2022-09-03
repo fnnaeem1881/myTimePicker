@@ -196,8 +196,8 @@ function timePicker(id){
             var x = document.getElementById("TimeGet");
             if (!x.contains(e.target)) {
                 // x.style.display = "none";
-                var minute= document.getElementById('minute').value;
-                var hour= document.getElementById('hour').value;
+                var minute=  parseFloat(document.getElementById('minute').value).toFixed(0);
+                var hour=  parseFloat(document.getElementById('hour').value).toFixed(0);
                 if(hour >=24){
                     hour='00';
                 }
