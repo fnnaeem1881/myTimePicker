@@ -151,7 +151,6 @@ function timePicker(id){
             h =24;
          }
          h--;
-         alert(h);
          document.getElementById('hour').value = (h<10?'0':0)+h;
         input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
 
@@ -216,24 +215,11 @@ function timePicker(id){
                 timePicker.innerHTML = '';
             }
         });
-    //           //submit timepicker
-    //           var submit = document.getElementById("submitTime");
-    //           submit.onclick = function(){
-    //     input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
-    //      input.removeAttribute('disabled');
-    //      timePicker.classList.toggle('open');
-    //      timePicker.innerHTML = '';
-    //   }
 
    }
 }
 timePicker('timePicker');
 timePicker('timePicker1');
-
-
-
-
-
 
 </script>
 <!-- Code injected by live-server -->
