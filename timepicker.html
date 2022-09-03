@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/cosmo/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+<title>Title</title>
+<style>
+.TimePickerClasslabel {
+    width: 8%;
+    float: left;
+    margin-right: 10px;
+    border: solid 1px #ddd;
+    padding: 0px 10px;
+    margin-top: 10px;
+}
+#TimeGet{
+    display: block;
+    overflow: hidden;
+    width: 100%;
+}
+.TimePickerClasslabel input {
+    width: 100%;
+    text-align: center;
+}
+
+.setTimePickerClassPlus {
+    text-align: center;
+    margin: auto;
+    display: block;
+    font-size: 25px;
+    cursor:pointer;
+    text-decoration: none !important;
+    margin: 5px 0px;
+}
+.time-picker {
+    position: absolute;
+    width: 100%;
+    z-index: 999999;
+    background: #fff;
+}
+.setTimePickerClassPlus:hover{
+    background: #ddd;
+}
+.setTimePickerClassMinus {
+    text-align: center;
+    margin: auto;
+    display: block;
+    font-size: 25px;
+    cursor:pointer;
+    text-decoration: none !important;
+    margin: 5px 0px;
+}
+.setTimePickerClassMinus:hover{
+    background: #ddd;
+}
+</style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-group">
+          <label for="">Time Picker</label>
+            <input  type="text" id="timePicker" class="form-control" name=""  aria-describedby="helpId" placeholder="">
+            <small id="helpId" class="form-text text-muted">Help text</small>
+        </div>
+        <div class="form-group">
+            <label for="">Time Picker</label>
+              <input  type="text" id="timePicker1" class="form-control" name=""  aria-describedby="helpId" placeholder="">
+              <small id="helpId" class="form-text text-muted">Help text</small>
+          </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+<script>
+function timePicker(id){
+   var input = document.getElementById(id);
+   var timePicker = document.createElement('div');
+   timePicker.classList.add('time-picker');
+//    input.value = '08:30';
+   var d = new Date(),
+    h = (d.getHours()<10?'0':'') + d.getHours(),
+    m = (d.getMinutes()<10?'0':'') + d.getMinutes();
+    input.value = h + ':' + m;
+
+   //open timepicker
+   input.onclick= function(){
+      timePicker.classList.toggle('open');
+      var d = new Date(),
+        hh = (d.getHours()<10?'0':'') + d.getHours(),
+        mm = (d.getMinutes()<10?'0':'') + d.getMinutes();
+      this.setAttribute('disabled','disabled');
+      timePicker.innerHTML +=`
+      <div id="TimeGet" class="set-time">
+         <div class="TimePickerClasslabel">
+            <a class="setTimePickerClassPlus" id="plusH" >+</a>
+            <input class="setTimePickerClass" disabled type="text" max="24" id="hour" value="${hh}">
+            <a class="setTimePickerClassMinus" id="minusH">-</a>
+         </div>
+         <div class="TimePickerClasslabel">
+            <a class="setTimePickerClassPlus" id="plusM">+</a>
+            <input class="setTimePickerClass" disabled type="text" max="60" id="minute" value="${mm}">
+            <a class="setTimePickerClassMinus" id="minusM">-</a>
+         </div>
+      </div>`;
+      this.after(timePicker);
+      var plusH = document.getElementById('plusH');
+      var minusH = document.getElementById('minusH');
+      var plusM = document.getElementById('plusM');
+      var minusM = document.getElementById('minusM');
+      var h = parseInt(document.getElementById('hour').value);
+      var m = parseInt(document.getElementById('minute').value);
+     //increment hour
+      plusH.onclick = function(){
+         h = isNaN(h) ? 0 : h;
+         if(h===23){
+            h =-1;
+         }
+          h++; 
+         document.getElementById('hour').value = (h<10?'0':0)+h;
+        input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
+
+      }
+      //decrement hour
+      minusH.onclick = function(){
+         h = isNaN(h) ? 0 : h;
+         if(h===0){
+            h =24;
+         }
+         h--;
+         document.getElementById('hour').value = (h<10?'0':0)+h;
+        input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
+
+      }
+      //increment minute
+      plusM.onclick = function(){
+         m = isNaN(m) ? 0 : m;
+         if(m===55){
+            m =-5; 
+         }
+          m = m+5; 
+          if(m >=60){
+            m=0;
+          }
+         document.getElementById('minute').value = (m<10?'0':0)+m;
+        input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
+
+      }
+      //decrement minute
+      minusM.onclick = function(){
+        m = isNaN(m) ? 0 : m;
+         if(m===0){
+            m =60;
+         }
+         m = m-5;
+         if(m >=60){
+            m=0;
+        }
+        if(m <=0){
+            m=0;
+        }
+         document.getElementById('minute').value = (m<10?'0':0)+m;
+        input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
+
+      }
+      var x = document.getElementById("TimeGet");
+        x.style.display = "block";
+
+        //Hide  timepicker when Click Outside
+        document.addEventListener('mouseup', function(e) {
+            var container = document.getElementById(id);
+            var x = document.getElementById("TimeGet");
+            if (!x.contains(e.target)) {
+                // x.style.display = "none";
+                container.removeAttribute('disabled');
+                timePicker.innerHTML = '';
+            }
+        });
+
+   }
+}
+timePicker('timePicker');
+timePicker('timePicker1');
+
+
+
+
+
+
+</script>
+</body>
+</html>
