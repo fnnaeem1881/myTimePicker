@@ -115,14 +115,14 @@ function timePicker(id){
       timePicker.innerHTML +=`
       <div id="TimeGet" class="set-time">
          <div class="TimePickerClasslabel">
-            <a class="setTimePickerClassPlus" id="plusH" >+</a>
+            <span class="setTimePickerClassPlus" id="plusH" >+</span>
             <input class="setTimePickerClass"  type="number" max="24" id="hour" value="${hh}">
-            <a class="setTimePickerClassMinus" id="minusH">-</a>
+            <span class="setTimePickerClassMinus" id="minusH">-</span>
          </div>
          <div class="TimePickerClasslabel">
-            <a class="setTimePickerClassPlus" id="plusM">+</a>
+            <span class="setTimePickerClassPlus" id="plusM">+</span>
             <input class="setTimePickerClass"  type="number" max="60" id="minute" value="${mm}">
-            <a class="setTimePickerClassMinus" id="minusM">-</a>
+            <span class="setTimePickerClassMinus" id="minusM">-</span>
          </div>
       </div>
       <div id="setTimePickerClassMinusSubmitTime"><span>OK</span></div>`;
