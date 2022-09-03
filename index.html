@@ -60,6 +60,17 @@
 .setTimePickerClassMinus:hover{
     background: #ddd;
 }
+/* Chrome, Safari, Edge, Opera */
+.TimePickerClasslabel input::-webkit-outer-spin-button,
+.TimePickerClasslabel input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 div#setTimePickerClassMinusSubmitTime {width: 230px;text-align: center;overflow: hidden;margin-bottom: 15px;}
 
 div#setTimePickerClassMinusSubmitTime span {
@@ -105,12 +116,12 @@ function timePicker(id){
       <div id="TimeGet" class="set-time">
          <div class="TimePickerClasslabel">
             <a class="setTimePickerClassPlus" id="plusH" >+</a>
-            <input class="setTimePickerClass" disabled type="text" max="24" id="hour" value="${hh}">
+            <input class="setTimePickerClass"  type="number" max="24" id="hour" value="${hh}">
             <a class="setTimePickerClassMinus" id="minusH">-</a>
          </div>
          <div class="TimePickerClasslabel">
             <a class="setTimePickerClassPlus" id="plusM">+</a>
-            <input class="setTimePickerClass" disabled type="text" max="60" id="minute" value="${mm}">
+            <input class="setTimePickerClass"  type="number" max="60" id="minute" value="${mm}">
             <a class="setTimePickerClassMinus" id="minusM">-</a>
          </div>
       </div>
@@ -140,6 +151,7 @@ function timePicker(id){
             h =24;
          }
          h--;
+         alert(h);
          document.getElementById('hour').value = (h<10?'0':0)+h;
         input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
 
@@ -184,18 +196,34 @@ function timePicker(id){
             var x = document.getElementById("TimeGet");
             if (!x.contains(e.target)) {
                 // x.style.display = "none";
+                var minute= document.getElementById('minute').value;
+                var hour= document.getElementById('hour').value;
+                if(hour >=24){
+                    hour='00';
+                }
+                if(hour <=0){
+                    hour='00';
+                }                
+                if(minute >=60){
+                    minute=59;
+                }
+                if(minute <=0){
+                    minute='00';
+                }
+                input.value = hour+':'+minute;
+                
                 container.removeAttribute('disabled');
                 timePicker.innerHTML = '';
             }
         });
-              //submit timepicker
-      var submit = document.getElementById("submitTime");
-      submit.onclick = function(){
-        input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
-         input.removeAttribute('disabled');
-         timePicker.classList.toggle('open');
-         timePicker.innerHTML = '';
-      }
+    //           //submit timepicker
+    //           var submit = document.getElementById("submitTime");
+    //           submit.onclick = function(){
+    //     input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
+    //      input.removeAttribute('disabled');
+    //      timePicker.classList.toggle('open');
+    //      timePicker.innerHTML = '';
+    //   }
 
    }
 }
