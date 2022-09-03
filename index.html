@@ -60,6 +60,14 @@
 .setTimePickerClassMinus:hover{
     background: #ddd;
 }
+div#setTimePickerClassMinusSubmitTime {width: 230px;text-align: center;overflow: hidden;margin-bottom: 15px;}
+
+div#setTimePickerClassMinusSubmitTime span {
+    border: solid 1px #e7dcdc;
+    padding: 0px 18px;
+    overflow: hidden;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -105,7 +113,8 @@ function timePicker(id){
             <input class="setTimePickerClass" disabled type="text" max="60" id="minute" value="${mm}">
             <a class="setTimePickerClassMinus" id="minusM">-</a>
          </div>
-      </div>`;
+      </div>
+      <div id="setTimePickerClassMinusSubmitTime"><span>OK</span></div>`;
       this.after(timePicker);
       var plusH = document.getElementById('plusH');
       var minusH = document.getElementById('minusH');
@@ -179,6 +188,14 @@ function timePicker(id){
                 timePicker.innerHTML = '';
             }
         });
+              //submit timepicker
+      var submit = document.getElementById("submitTime");
+      submit.onclick = function(){
+        input.value = document.getElementById('hour').value+':'+document.getElementById('minute').value;
+         input.removeAttribute('disabled');
+         timePicker.classList.toggle('open');
+         timePicker.innerHTML = '';
+      }
 
    }
 }
